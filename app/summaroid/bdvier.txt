@@ -1,0 +1,39 @@
+<div className="flex justify-center items-center flex-col w-full h-3/5 gap-4">
+
+<form className='text-center' onSubmit={handleSubmit}>
+  {/* Dropdown untuk memilih jenis input */}
+  <select title="option" value={inputType} onChange={(e) => setInputType(e.target.value)}>
+    <option value="text">Text</option>
+    <option value="url">URL</option>
+    <option value="file">File</option>
+  </select>
+
+  {/* Input teks jika jenis input adalah text */}
+  {inputType === 'text' && (
+    <textarea title="text" value={inputValue} onChange={handleInputChange} />
+  )}
+
+  {/* Input URL jika jenis input adalah URL */}
+  {inputType === 'url' && (
+    <input title="url" type="text" value={inputValue} onChange={handleInputChange} />
+  )}
+
+  {/* Input file jika jenis input adalah file */}
+  {inputType === 'file' && (
+    <input title="file" type="file" accept=".txt,.pdf" onChange={handleFileChange} />
+  )}
+
+  {/* Tombol untuk melakukan submit */}
+  <button type="submit">Summarize</button>
+</form>
+{/* Komponen untuk menampilkan hasil rangkuman */}
+<SummaryResult summary={summary} />
+</div>
+
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setInputType('file');
+      setInputFile(file);
+    }
+  };
